@@ -2,6 +2,7 @@
 
 import BarcodeInput from "./components/BarcodeInput";
 import ProductCard from "./components/ProductCard";
+import SearchHistory from "./components/SearchHistory";
 import { useProductSearch } from "./hooks/useProductSearch";
 
 export default function Home() {
@@ -15,6 +16,7 @@ export default function Home() {
         </h1>
         <BarcodeInput onSearch={search} isLoading={loading} />
         <ProductCard product={product} loading={loading} error={error} />
+        <SearchHistory onSelect={search} />
       </section>
     </div>
   );
