@@ -4,16 +4,14 @@ import { useState } from "react";
 import BarcodeInput from "./components/BarcodeInput";
 import { ProductResult } from "./types/product";
 import { getProductByBarcode } from "./services/product.service";
+import { generatePrice } from "./utils/price";
 
 export default function Home() {
   const [product, setProduct] = useState<ProductResult | null>(null);
 
-
   const handleSearch = async (barCode: string) => {
     try {
       const data = await getProductByBarcode(barCode);
-
-      console.log("PRODUCT: ", data)
 
       const mappedProduct: ProductResult = {
         id: barCode,
@@ -21,10 +19,12 @@ export default function Home() {
         brand: data.brands || 'Marca desconocida',
         image: data.image_front_url || null,
         category: data.categories || null,
-        price: Number(barCode),
+        price: generatePrice(),
       };
 
       setProduct(mappedProduct);
+
+      console.log("PRODUCT: ", product)
 
     } catch (error) {
       console.error(error);
