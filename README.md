@@ -21,3 +21,15 @@ Desarrollado por **Sergio Bazan**
 - **Tailwind CSS**
 
 ---
+
+## Configuración del Entorno
+
+Para que la aplicación pueda realizar consultas a la API de productos, es necesario crear un archivo de variables de entorno.
+
+### 1️⃣ Crear el archivo `.env.local`
+
+En la raíz del proyecto, crear el archivo:
+
+```txt
+.env.local
+```
