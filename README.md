@@ -62,6 +62,10 @@ Además, se incluye un enlace con capturas de pantalla del flujo principal de la
 
 ![Busqueda Producto](./images/busqueda-producto.png)
 
+### Historial de busqueda
+
+![Busqueda Producto](./images/historial-busqueda.png)
+
 ## Autor
 
 Desarrollado por **Sergio Bazan**
