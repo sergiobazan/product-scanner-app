@@ -66,6 +66,10 @@ Además, se incluye un enlace con capturas de pantalla del flujo principal de la
 
 ![Busqueda Producto](./images/historial-busqueda.png)
 
+### Escanner de producto
+
+![Escanner Producto](./images/scanner-producto.png)
+
 ## Autor
 
 Desarrollado por **Sergio Bazan**
