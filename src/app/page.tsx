@@ -1,11 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import BarcodeInput from "./components/BarcodeInput";
-import ProductCard from "./components/ProductCard";
-import SearchHistory from "./components/SearchHistory";
 import { useProductSearch } from "./hooks/useProductSearch";
 import CameraScanner from "./components/CameraScanner";
+import Header from "./components/Header";
+import SearchSection from "./components/SearchSection";
+import SearchHistory from "./components/SearchHistory";
+import ProductCard from "./components/ProductCard";
 
 export default function Home() {
   const { product, loading, error, search } = useProductSearch();
@@ -14,15 +15,17 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gray-50 p-4">
       <section className="max-w-md mx-auto space-y-4">
-        <h1 className="text-red-500 font-bold text-2xl text-center">
-          Product Scanner
-        </h1>
-        <BarcodeInput onSearch={search} isLoading={loading} />
-        <button
-          onClick={() => setOpenScanner(true)}
-          className="w-full bg-blue-600 text-white py-2 rounded-lg">
-          Escanear con cámara
-        </button>
+        <Header />
+
+        <SearchSection
+          onSearch={search}
+          loading={loading}
+          onOpenScanner={() => setOpenScanner(true)}
+        />
+
+        <ProductCard product={product} loading={loading} error={error} />
+
+        <SearchHistory onSelect={search} />
 
         {openScanner && (
           <CameraScanner
@@ -33,8 +36,6 @@ export default function Home() {
             onClose={() => setOpenScanner(false)}
           />
         )}
-        <ProductCard product={product} loading={loading} error={error} />
-        <SearchHistory onSelect={search} />
       </section>
     </div>
   );

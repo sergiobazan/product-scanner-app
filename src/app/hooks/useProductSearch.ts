@@ -4,15 +4,7 @@ import { useState } from "react";
 import { getProductByBarcode } from "../services/product.service";
 import { generatePrice } from "../utils/price";
 import { Constants } from "../constants/constants";
-
-export type ProductResult = {
-  id: string;
-  name: string;
-  brand: string;
-  image: string | null;
-  category: string | null;
-  price: number;
-};
+import { ProductResult } from "../types/product";
 
 export const useProductSearch = () => {
   const [product, setProduct] = useState<ProductResult | null>(null);
