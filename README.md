@@ -30,16 +30,47 @@ La información del producto se obtiene desde la API pública de **OpenFoodFacts
 
 ---
 
+## Instalación y ejecución local
+
+Sigue estos pasos para ejecutar el proyecto en tu máquina local.
+
+### Clonar el repositorio
+
+```bash
+git clone https://github.com/sergiobazan/product-scanner-app
+cd product-scanner-app
+```
+
+### Instalar dependencias
+
+```bash
+npm install
+```
+
+---
+
 ## Configuración del Entorno
 
 Para que la aplicación pueda realizar consultas a la API de productos, es necesario crear un archivo de variables de entorno.
 
-### 1️⃣ Crear el archivo `.env.local`
+### Crear el archivo `.env.local`
 
 En la raíz del proyecto, crear el archivo:
 
 ```txt
 .env.local
+```
+
+Agregar la variable de entorno:
+
+```env
+NEXT_PUBLIC_API_URL=https://world.openfoodfacts.org/api/v0/product
+```
+
+### Ejecutar el proyecto en desarrollo
+
+```bash
+npm run dev
 ```
 
 ---
