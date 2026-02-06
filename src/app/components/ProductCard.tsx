@@ -6,7 +6,7 @@ import { ProductResult } from '../types/product';
 type Props = {
   product: ProductResult | null;
   loading: boolean;
-  error: string | null;
+  error: string | undefined;
 };
 
 export default function ProductCard({ product, loading, error }: Props) {

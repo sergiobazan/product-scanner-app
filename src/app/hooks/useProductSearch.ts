@@ -2,56 +2,37 @@
 
 import { useState } from "react";
 import { getProductByBarcode } from "../services/product.service";
+import { useQuery } from "@tanstack/react-query";
 import { generatePrice } from "../utils/price";
-import { Constants } from "../constants/constants";
-import { ProductResult } from "../types/product";
 
 export const useProductSearch = () => {
-  const [product, setProduct] = useState<ProductResult | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [barcode, setBarcode] = useState<string | null>(null);
 
-  const saveToHistory = (item: ProductResult) => {
-    const stored = localStorage.getItem(Constants.STORAGE_KEY);
-    const history: ProductResult[] = stored ? JSON.parse(stored) : [];
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["product", barcode],
+    queryFn: () => getProductByBarcode(barcode!),
+    enabled: !!barcode,
+    staleTime: 1000 * 60 * 5,
+  });
 
-    const filtered = history.filter((p) => p.id !== item.id);
-
-    const updated = [item, ...filtered].slice(0, Constants.MAX_ITEMS);
-
-    localStorage.setItem(Constants.STORAGE_KEY, JSON.stringify(updated));
-  };
-
-  const search = async (barcode: string) => {
-    try {
-      setLoading(true);
-      setError(null);
-
-      const data = await getProductByBarcode(barcode);
-
-      const mappedProduct: ProductResult = {
-        id: barcode,
-        name: data.product_name || "Producto sin nombre",
-        brand: data.brands || "Marca desconocida",
+  const product = data
+    ? {
+        id: barcode!,
+        name: data.product_name || "Sin nombre",
+        brand: data.brands || "Sin marca",
         image: data.image_front_url || null,
         category: data.categories || null,
         price: generatePrice(),
-      };
+      }
+    : null;
 
-      setProduct(mappedProduct);
-      saveToHistory(mappedProduct);
-    } catch (err) {
-      console.error(err);
-      setProduct(null);
-      setError("Producto no encontrado");
-    } finally {
-      setLoading(false);
-    }
+  const search = (code: string) => {
+    setBarcode(code);
   };
 
   return {
     product,
-    loading,
+    loading: isLoading,
     error,
     search,
   };

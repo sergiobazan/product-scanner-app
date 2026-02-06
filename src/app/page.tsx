@@ -1,16 +1,23 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useProductSearch } from "./hooks/useProductSearch";
 import CameraScanner from "./components/CameraScanner";
 import Header from "./components/Header";
 import SearchSection from "./components/SearchSection";
 import SearchHistory from "./components/SearchHistory";
 import ProductCard from "./components/ProductCard";
+import { saveToHistory } from "./utils/saveToHistory";
 
 export default function Home() {
   const { product, loading, error, search } = useProductSearch();
   const [openScanner, setOpenScanner] = useState(false);
+
+  useEffect(() => {
+    if (product) {
+      saveToHistory(product);
+    }
+  }, [product]);
 
   return (
     <div className="min-h-screen bg-gray-50 p-4">
@@ -23,7 +30,11 @@ export default function Home() {
           onOpenScanner={() => setOpenScanner(true)}
         />
 
-        <ProductCard product={product} loading={loading} error={error} />
+        <ProductCard
+          product={product}
+          loading={loading}
+          error={error?.message}
+        />
 
         <SearchHistory onSelect={search} />
 
