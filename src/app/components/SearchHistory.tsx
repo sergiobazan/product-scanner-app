@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { ProductResult } from '../types/product'; 
-import { Constants } from '../constants/constants';
+import { useEffect, useEffectEvent, useState } from "react";
+import { ProductResult } from "../types/product";
+import { Constants } from "../constants/constants";
 
 type Props = {
   onSelect: (barcode: string) => void;
@@ -12,18 +12,15 @@ export default function SearchHistory({ onSelect }: Props) {
   const [history, setHistory] = useState<ProductResult[]>([]);
   const [isLoaded, setIsLoaded] = useState(false);
 
+  const updateHistory = useEffectEvent((stored: string) => {
+    setHistory(JSON.parse(stored));
+    setIsLoaded(true);
+  });
+
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      try {
-        const stored = localStorage.getItem(Constants.STORAGE_KEY);
-        if (stored) {
-          setHistory(JSON.parse(stored));
-        }
-      } catch (error) {
-        console.error('Error al cargar el historial:', error);
-      } finally {
-        setIsLoaded(true);
-      }
+    const stored = localStorage.getItem(Constants.STORAGE_KEY);
+    if (stored) {
+      updateHistory(stored);
     }
   }, []);
 
@@ -39,9 +36,7 @@ export default function SearchHistory({ onSelect }: Props) {
   if (history.length === 0) {
     return (
       <div className="bg-white rounded-xl shadow-sm p-4 text-center">
-        <p className="text-gray-400 text-sm">
-          No hay búsquedas recientes
-        </p>
+        <p className="text-gray-400 text-sm">No hay búsquedas recientes</p>
       </div>
     );
   }
@@ -54,8 +49,7 @@ export default function SearchHistory({ onSelect }: Props) {
         </h3>
         <button
           onClick={clearHistory}
-          className="text-xs text-red-500 hover:underline"
-        >
+          className="text-xs text-red-500 hover:underline">
           Limpiar
         </button>
       </div>
@@ -65,11 +59,8 @@ export default function SearchHistory({ onSelect }: Props) {
           <li
             key={item.id}
             onClick={() => onSelect(item.id)}
-            className="py-2 cursor-pointer hover:bg-gray-50 transition"
-          >
-            <p className="text-sm font-medium text-gray-800">
-              {item.name}
-            </p>
+            className="py-2 cursor-pointer hover:bg-gray-50 transition">
+            <p className="text-sm font-medium text-gray-800">{item.name}</p>
             <p className="text-xs text-gray-500">
               {item.brand} · S/. {item.price}
             </p>
