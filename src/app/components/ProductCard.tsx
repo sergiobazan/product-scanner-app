@@ -1,7 +1,8 @@
-'use client';
+"use client";
 
-import Image from 'next/image';
-import { ProductResult } from '../types/product'; 
+import Image from "next/image";
+import { ProductResult } from "../types/product";
+import { Loader2 } from "lucide-react";
 
 type Props = {
   product: ProductResult | null;
@@ -12,8 +13,9 @@ type Props = {
 export default function ProductCard({ product, loading, error }: Props) {
   if (loading) {
     return (
-      <div className="bg-white rounded-xl shadow-sm p-4 text-center">
-        <p className="text-gray-500">Cargando producto...</p>
+      <div className="bg-white rounded-xl shadow-sm p-6 flex flex-col items-center gap-3">
+        <Loader2 className="w-6 h-6 animate-spin text-blue-600" />
+        <p className="text-sm text-gray-500">Buscando producto...</p>
       </div>
     );
   }
@@ -48,9 +50,7 @@ export default function ProductCard({ product, loading, error }: Props) {
       )}
 
       <div className="p-4 space-y-2">
-        <h2 className="text-lg font-semibold text-gray-900">
-          {product.name}
-        </h2>
+        <h2 className="text-lg font-semibold text-gray-900">{product.name}</h2>
 
         <p className="text-sm text-gray-600">
           <span className="font-medium">Marca:</span> {product.brand}
@@ -62,9 +62,7 @@ export default function ProductCard({ product, loading, error }: Props) {
           </p>
         )}
 
-        <p className="text-xl font-bold text-blue-600">
-          S/. {product.price}
-        </p>
+        <p className="text-xl font-bold text-blue-600">S/. {product.price}</p>
       </div>
     </div>
   );
