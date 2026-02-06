@@ -87,19 +87,19 @@ Además, se incluye un enlace con capturas de pantalla del flujo principal de la
 
 ### Pantalla inicial
 
-![Ingresar Codigo](./images/ingresar-codigo.png)
+![Ingresar Codigo](./images/ingresar-codigo.jpeg)
 
 ### Resultado de búsqueda Producto
 
-![Busqueda Producto](./images/busqueda-producto.png)
+![Busqueda Producto](./images/busqueda-producto.jpeg)
 
 ### Historial de busqueda
 
-![Busqueda Producto](./images/historial-busqueda.png)
+![Busqueda Producto](./images/historial-busqueda.jpeg)
 
 ### Escanner de producto
 
-![Escanner Producto](./images/scanner-producto.png)
+![Escanner Producto](./images/scanner-producto.jpeg)
 
 ## Autor
 
